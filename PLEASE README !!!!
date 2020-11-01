@@ -1,0 +1,52 @@
+Case for Docker Containers
+===========================
+https://www.infoworld.com/article/3310941/why-you-should-use-docker-and-containers.html
+
+Installing  Docker on Windows 10
+=================================
+https://docs.docker.com/docker-for-windows/install-windows-home/
+https://hub.docker.com/editions/community/docker-ce-desktop-windows/
+
+
+Running a Spring Boot Application from a DOCKER container
+=========================================================
+https://stackabuse.com/dockerizing-a-spring-boot-application/ (fantastic article !!!!)
+
+
+NOTE: the root directory of the application is where the “Dockerfile” resides. 
+Also run everything from a WINDOWS POWERSHELL tool.
+When manually doing the docker build run the following commands: 
+(ALWAYS USE THE WINDOWS POWERSHELL WHEN RUNNING THESE COMMANDS)
+(prerequisite: make sure that you've run a maven install and have the latest jar file in the "target" folder)
+1. docker build -t springboot-docker-starter . (the dot in the end is very important - it means all)
+2. docker images  (just to check that the image has been created)
+3. docker run -d -p 8090:8080 <docker image-name> (to run the docker container on a different port - the -d is to run it as a background process)
+4. docker container ls  (this will tell you the pid of the docker container)
+
+Make sure you can run your service individually from spring.
+Make sure you can run your service individually on docker locally.
+
+The best way is to run it from your maven build - the stackhouse article explains how to do it.
+
+----------
+
+Pushing docker image to docker hub
+==================================
+Nice video - https://www.youtube.com/watch?v=fdQ7MmQNTa0
+Nice video (more basic) - https://www.youtube.com/watch?v=3SYJQ-z4LBw  --- this one really helped me !!!!
+
+docker commit <local container pid> <docker hub login>/<image name>  --- this will create the new docker hub repo for this image for different tags.
+docker images --- confirm that the new docker hub repo image is created
+docker login --- login to the docker hub repo
+docker push <docker hub login/<image name> 
+
+In the case of this project:
+docker commit a8c604236ff4 pointinsights/springboot-docker-starter
+docker images
+docker login
+docker push  pointinsights/springboot-docker-starter <:tag name>  -- the tag name is optional - useful only when there are multiple versions of this image.
+
+This is how you tag a local image - https://docs.docker.com/engine/reference/commandline/tag/
+
+
+
